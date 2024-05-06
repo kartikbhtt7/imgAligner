@@ -7,8 +7,6 @@ from utility import (
     reorder,
     biggestContour,
     drawRectangle,
-    initializeTrackbars,
-    valTrackbars,
 )
 
 st.title("Document Scanner with Perspective Transformation")
