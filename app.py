@@ -36,7 +36,7 @@ if size_choice == "Custom":
     custom_width = st.slider("Custom Width", 200, 2000, 640)
     custom_height = st.slider("Custom Height", 200, 2000, 480)
     output_width = custom_width
-    custom_height = custom_height
+    output_height = custom_height
 else:
     output_width, output_height = predefined_sizes[size_choice]
 
