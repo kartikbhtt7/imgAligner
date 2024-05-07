@@ -1,7 +1,8 @@
-# app.py
 import cv2
 import numpy as np
 import streamlit as st
+import tempfile
+from PIL import Image
 from utility import (
     stackImages,
     reorder,
@@ -35,7 +36,7 @@ if size_choice == "Custom":
     custom_width = st.slider("Custom Width", 200, 2000, 640)
     custom_height = st.slider("Custom Height", 200, 2000, 480)
     output_width = custom_width
-    output_height = custom_height
+    custom_height = custom_height
 else:
     output_width, output_height = predefined_sizes[size_choice]
 
@@ -92,5 +93,18 @@ if uploaded_file is not None:
             caption=["Warped Perspective", "Adaptive Threshold"],
             width=150,
         )
+
+        # Add a button to download the warped image
+        with tempfile.NamedTemporaryFile(delete=False, suffix=".png") as f:
+            # Save the warped image to the temporary file
+            cv2.imwrite(f.name, imgWarpColored)
+
+            # Provide the download link
+            st.download_button(
+                label="Download Warped Image",
+                data=open(f.name, "rb").read(),
+                file_name="warped_image.png",
+                mime="image/png",
+            )
     else:
         st.warning("No suitable contour found in the image.")
